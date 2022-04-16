@@ -20,7 +20,7 @@ export default function DenseAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" component="div">
-            Population
+            Population Chart
           </Typography>
         </Toolbar>
       </AppBar>
