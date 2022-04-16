@@ -10,6 +10,9 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import axios from "axios";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteId } from "../Redux/action";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -32,12 +35,18 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function ShowTable({ tableData, setData }) {
+  useSelector((store) => store.delete.data);
+  const dispatch = useDispatch();
+
   const handleDelete = (id) => {
     axios
       .delete(`http://localhost:8080/add-city/${id}`)
       .then((response) => {
         console.log(response);
         getCityData();
+        localStorage.setItem("data", JSON.stringify(response.data));
+        const localStorageToken = localStorage.getItem("data");
+        dispatch(deleteId(localStorageToken));
       })
       .catch((err) => {
         console.log(err);
@@ -56,8 +65,32 @@ export default function ShowTable({ tableData, setData }) {
       });
   };
 
+  const [order, setOrder] = useState("ASC");
+  const handlesort = (col) => {
+    if (order === "ASC") {
+      const sorted = [...tableData].sort((a, b) => (a[col] > b[col] ? 1 : -1));
+      setData(sorted);
+      setOrder("DESC");
+    }
+    if (order === "DESC") {
+      const sorted = [...tableData].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+      setData(sorted);
+      setOrder("ASC");
+    }
+  };
+
+  const localStorageToken = localStorage.getItem("data");
+  dispatch(deleteId(localStorageToken));
+
   return (
     <>
+      <Button
+        variant="contained"
+        sx={{ m: 3 }}
+        onClick={() => handlesort("ASC")}
+      >
+        Sort Population
+      </Button>
       <Container component="main" maxWidth="m">
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -90,6 +123,7 @@ export default function ShowTable({ tableData, setData }) {
                       <Button
                         variant="contained"
                         onClick={() => handleDelete(el.id)}
+                        sx={{backgroundColor:"red"}}
                       >
                         Delete
                       </Button>

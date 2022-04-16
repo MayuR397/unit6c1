@@ -3,6 +3,10 @@
     {
       "country": "India",
       "id": 1
+    },
+    {
+      "country": "China",
+      "id": 2
     }
   ],
   "add-city": [
@@ -10,13 +14,19 @@
       "city": "Jaipur",
       "population": "410000",
       "country": "India",
-      "id": 4
+      "id": 2
     },
     {
-      "city": "Jaipur",
-      "population": "100000",
+      "city": "Bhusawal",
+      "population": "250000",
       "country": "India",
-      "id": 5
+      "id": 3
+    },
+    {
+      "city": "Pune",
+      "population": "4500000",
+      "country": "India",
+      "id": 4
     }
   ]
 }

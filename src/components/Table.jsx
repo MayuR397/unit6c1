@@ -6,8 +6,16 @@ import Container from "@mui/material/Container";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ShowTable from "./ShowTable";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteId } from "../Redux/action";
 
 const Table = () => {
+  useSelector((store) => store.delete.data);
+  const dispatch = useDispatch();
+
+  const localStorageToken = localStorage.getItem("data");
+  dispatch(deleteId(localStorageToken));
+
   const [data, setData] = useState([]);
 
   const handleSubmitCountry = (event) => {
@@ -62,7 +70,7 @@ const Table = () => {
 
   return (
     <>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex"}}>
         <Container component="main" maxWidth="xs">
           <h1>Add Country</h1>
 
@@ -86,7 +94,7 @@ const Table = () => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2 ,backgroundColor:"gold"}}
             >
               Add Country
             </Button>
