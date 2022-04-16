@@ -1,12 +1,10 @@
-import logo from './logo.svg';
-import './App.css';
-import Table from './Components/Table';
+import Routers from "./Routes/Routers";
 
 function App() {
   return (
-    <div className="App">
-     <Table/>
-    </div>
+    <>
+      <Routers />
+    </>
   );
 }
 
